@@ -70,7 +70,7 @@ public class HerokuMain extends HttpServlet {
 
 			out.println("\n<<< Update phone >>>");
 			Phone phone = person1.getPhone().get(0);
-			phone.setNumber("9174281234");
+			phone.setNumber("8474281234");
 
 			// Add new phone
 			Phone workphone = new Phone();
@@ -87,6 +87,7 @@ public class HerokuMain extends HttpServlet {
 
 			out.println("\n<<< Retrieved from database >>>");
 			out.println(personService.getPerson(person1.getId()));
+            out.println(personService.getPerson(person2.getId()));
 
 			// Remove person itself
 			out.println("\n<<< Remove person >>>");
