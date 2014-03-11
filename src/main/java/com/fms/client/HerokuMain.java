@@ -70,11 +70,13 @@ public class HerokuMain extends HttpServlet {
 
 			out.println("\n<<< Update phone >>>");
 			Phone phone = person1.getPhone().get(0);
-			phone.setNumber("8474281234");
+			phone.setArea("847");
+            phone.setNumber("4281234");
 
 			// Add new phone
 			Phone workphone = new Phone();
-			workphone.setNumber("2126661234");
+			workphone.setArea("212");
+            workphone.setNumber("6661234");
 			workphone.setType("Work");
 			workphone.setCountry("+1");
 
