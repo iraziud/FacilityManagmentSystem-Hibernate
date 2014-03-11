@@ -86,8 +86,11 @@ public class HerokuMain extends HttpServlet {
 			personService.updatePerson(person1);
 
 			out.println("\n<<< Retrieved from database >>>");
-			out.println(personService.getPerson(person1.getId()));
+            out.println("\n----");
+            out.println(personService.getPerson(person1.getId()));
+            out.println("\n----");
             out.println(personService.getPerson(person2.getId()));
+            out.println("\n----");
 
 			// Remove person itself
 			out.println("\n<<< Remove person >>>");
