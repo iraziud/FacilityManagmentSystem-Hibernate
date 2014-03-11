@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.fms.model.Address" table="address">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="address1" type="string">
+            <column name="address1" />
+        </property>
+        <property name="address2" type="string">
+            <column name="address2" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" />
+        </property>
+        <property name="country" type="string">
+            <column name="country" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" />
+        </property>
+        <property name="zip" type="string">
+            <column name="zip" />
+        </property>
+    </class>
+</hibernate-mapping>

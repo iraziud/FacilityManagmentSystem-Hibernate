@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.fms.model.Person" table="person">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="DOB" type="string">
+            <column name="DOB" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" />
+        </property>
+        <property name="fname" type="string">
+            <column name="fname" />
+        </property>
+        <property name="lname" type="string">
+            <column name="lname" />
+        </property>
+        <property name="middlename" type="string">
+            <column name="middlename" />
+        </property>
+        <bag name="phone" table="person_phone" lazy="false" fetch="select" cascade="all-delete-orphan">
+            <key>
+                <column name="PERSON_ID" not-null="true" />
+            </key>
+            <many-to-many class="com.fms.model.Phone">
+                <column name="PHONE_ID" not-null="true" />
+            </many-to-many>
+        </bag>
+        <bag name="address" table="person_address" lazy="false" fetch="select"  cascade="all-delete-orphan">
+            <key>
+                <column name="PERSON_ID" not-null="true" />
+            </key>
+            <many-to-many class="com.fms.model.Address">
+                <column name="ADDRESS_ID" not-null="true" />
+            </many-to-many>
+        </bag>
+        <bag name="usesFacility" table="person_facility" lazy="false" fetch="select" cascade="save-update">
+            <key>
+                <column name="PERSON_ID" not-null="true" />
+            </key>
+            <many-to-many class="com.fms.model.Facility">
+                <column name="FACILITY_ID" not-null="true" />
+            </many-to-many>
+        </bag>
+    </class>
+</hibernate-mapping>
