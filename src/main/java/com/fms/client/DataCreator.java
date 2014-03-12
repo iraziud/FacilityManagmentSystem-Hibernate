@@ -7,7 +7,7 @@ import com.fms.model.Phone;
 import com.fms.model.Unit;
 
 public class DataCreator {
-	public static Person createPerson(String firstName, String lastName, String email, String dob, String address, String city, String state, String zip, String country, String phoneNumber) {
+	public static Person createPerson(String firstName, String lastName, String email, String dob, String address, String city, String state, String zip, String country, String area, String phoneNumber) {
 		// Add a person to the facility
 		Person person = new Person();
 		person.setFirstName(firstName);
@@ -19,9 +19,11 @@ public class DataCreator {
 		person.addAddress(addressObj);
 
 		Phone phone = new Phone();
-		phone.setNumber(phoneNumber);
+        phone.setCountry("+1");
+        phone.setArea(area);
+        phone.setNumber(phoneNumber);
 		phone.setType("H");
-		phone.setCountry("+1");
+
 
 		person.addPhone(phone);
 		
