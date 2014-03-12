@@ -33,13 +33,13 @@ public class FacilityUsageTest {
 	public void setup() {
 		// Create a new facility with address
 		address = new Address();
-		address.setAddress1("620 8th Ave");
-		address.setCity("New York");
-		address.setState("NY");
+		address.setAddress1("800 Michigan Ave");
+		address.setCity("Chicago");
+		address.setState("IL");
 		address.setCountry("USA");
-		address.setZip("07094");
+		address.setZip("60611");
 
-		facility = new Facility("SkyScraper", "400x400", 10000, address);
+		facility = new Facility("Skyscraper", "400x400", 10000, address);
 
 		unit = new Unit();
 		unit.setWidth(400);
@@ -55,21 +55,22 @@ public class FacilityUsageTest {
 	private Person createPerson() {
 		// Add a person to the facility
 		Person person = new Person();
-		person.setFirstName("Tom");
-		person.setLastName("Thumb");
-		person.setEmail("tomthumb@gmail.com");
+		person.setFirstName("Irfan");
+		person.setLastName("Raziuddin");
+		person.setEmail("iraziud@gmail.com");
 		person.setDOB("01-01-1985");
 
 		Address address = new Address();
-		address.setAddress1("620 8th Ave");
-		address.setCity("New York");
-		address.setState("NY");
+		address.setAddress1("800 Michigan Ave");
+		address.setCity("Chicago");
+		address.setState("IL");
 		address.setCountry("USA");
-		address.setZip("07094");
+		address.setZip("60611");
 		person.addAddress(address);
 
 		Phone phone = new Phone();
-		phone.setNumber("2126661234");
+		phone.setArea("312");
+        phone.setNumber("6661234");
 		phone.setType("H");
 		phone.setCountry("+1");
 
@@ -138,13 +139,13 @@ public class FacilityUsageTest {
 	public void testUpdateGetFacility() {
 		// Update name
 		facility.setCapacity(500);
-		facility.setDetail("New SkyScraper");
+		facility.setDetail("New Skyscraper");
 
 		facilityUsage.updateFacility(facility);
 
 		Facility facility2 = facilityUsage.getFacility(facility.getId());
 		Assert.assertEquals(facility.getId(), facility2.getId());
-		Assert.assertEquals("New SkyScraper", facility2.getDetail());
+		Assert.assertEquals("New Skyscraper", facility2.getDetail());
 		Assert.assertEquals(500, facility2.getCapacity());
 
 		// Make sure address is available

@@ -27,23 +27,25 @@ public class PersonServiceTest {
 	public void setup() {
 		// Create a new person
 		person = new Person();
-		person.setFirstName("Tom");
-		person.setLastName("Thumb");
-		person.setEmail("tomthumb@gmail.com");
+		person.setFirstName("Irfan");
+		person.setLastName("Raziuddin");
+		person.setEmail("iraziud@gmail.com");
 		person.setDOB("01-01-1985");
 
 		address = new Address();
-		address.setAddress1("620 8th Ave");
-		address.setCity("New York");
-		address.setState("NY");
+		address.setAddress1("800 Michigan Ave");
+		address.setCity("Chicago");
+		address.setState("IL");
 		address.setCountry("USA");
-		address.setZip("07094");
+		address.setZip("60611");
 		person.addAddress(address);
 
 		phone = new Phone();
-		phone.setNumber("2126661234");
+        phone.setCountry("+1");
+        phone.setArea("312");
+        phone.setNumber("6661234");
 		phone.setType("H");
-		phone.setCountry("+1");
+
 
 		person.addPhone(phone);
 
@@ -74,12 +76,12 @@ public class PersonServiceTest {
 
 	@Test
 	public void testUpdateGetPerson() {
-		person.setEmail("tomnew@gmail.com");
+		person.setEmail("irfannew@gmail.com");
 		personService.updatePerson(person);
 
 		Person person2 = personService.getPerson(person.getId());
 		Assert.assertEquals(person.getId(), person2.getId());
-		Assert.assertEquals("tomnew@gmail.com", person2.getEmail());
+		Assert.assertEquals("irfannew@gmail.com", person2.getEmail());
 
 		// Make sure address is available
 		Assert.assertEquals(address.getId(), person.getAddress().get(0).getId());

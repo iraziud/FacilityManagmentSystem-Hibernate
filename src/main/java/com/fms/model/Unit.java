@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
- * @author Parameswaran
+ *
  * 
  */
 @Entity

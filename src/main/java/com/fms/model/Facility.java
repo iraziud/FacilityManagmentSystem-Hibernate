@@ -20,18 +20,7 @@ import javax.persistence.OneToOne;
 
 /**
  * 
- * Note: 1. We maintain a list of facilities for each facility that holds all
- * the facilities that it can have. We didn't implement any specific facility
- * (e.g. house, apartment, shop because they are all subtype of facility and any
- * subtype that's added in future would just have to implement the facility
- * interface and "this" class can hold it's objects (list of facility), so makes
- * design more extensible and flexible.
- * 
- * 2. Floors are made a separate entity because a floor can have any number of
- * facility and to be able to access any facility on any floor we've to make it
- * separate entity, you can't make floor as an attribute of facility because if
- * you do so then you won't be able to achieve this functionality which makes
- * the design more fragile.
+ *
  * 
  */
 @Entity

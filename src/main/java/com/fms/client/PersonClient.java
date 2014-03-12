@@ -53,11 +53,13 @@ public class PersonClient {
 
 		System.out.println("\n<<< Update phone >>>");
 		Phone phone = person1.getPhone().get(0);
-		phone.setNumber("9174281234");
+        phone.setArea("917");
+		phone.setNumber("4281234");
 
 		// Add new phone
 		Phone workphone = new Phone();
-		workphone.setNumber("2126661234");
+		workphone.setArea("312");
+        workphone.setNumber("6661234");
 		workphone.setType("Work");
 		workphone.setCountry("+1");
 

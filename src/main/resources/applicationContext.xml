@@ -18,12 +18,13 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 
-	<!--This code connects to Heroku MySQL ClearDB-->
+	<!-- This code connects to Heroku MySQL ClearDB -->
 	<bean class="java.net.URI" id="dbUrl">
     	<constructor-arg value="#{systemEnvironment['CLEARDB_DATABASE_URL']}"/>
 	</bean>
 
 
+    <!-- Use this for Heroku MySQL ClearDB connection -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
         destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -33,8 +34,7 @@
     </bean>
 
 
-    <!-- Use this for local MySql testing -->
-    <!--
+    <!-- Use this for testing local MySQL connection
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />

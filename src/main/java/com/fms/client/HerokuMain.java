@@ -47,12 +47,12 @@ public class HerokuMain extends HttpServlet {
 
 			// Create a new person
 			Person person1 = DataCreator.createPerson("Irfan", "Raziuddin", "iraziud@gmail.com", "01-01-1985", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661236");
-			Person person2 = DataCreator.createPerson("Zain", "Maqsood", "zmaqsood@gmail.com", "01-01-1986", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661236");
-			Person person3 = DataCreator.createPerson("Frank", "Thumb", "frank@gmail.com", "01-01-1987", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661236");
-			Person person4 = DataCreator.createPerson("Chris", "Cross", "chris@gmail.com", "01-01-1988", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661236");
-			Person person5 = DataCreator.createPerson("Julia", "Stiles", "julia@gmail.com", "01-01-1989", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661236");
-			Person person6 = DataCreator.createPerson("Robert", "Redford", "robert@gmail.com", "01-01-1990", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661236");
-			Person person7 = DataCreator.createPerson("Hugh", "Grant", "hugh@gmail.com", "01-01-1991", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661236");
+			Person person2 = DataCreator.createPerson("Zain", "Maqsood", "zmaqsood@gmail.com", "01-01-1986", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661237");
+			Person person3 = DataCreator.createPerson("Frank", "Thumb", "frank@gmail.com", "01-01-1987", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661238");
+			Person person4 = DataCreator.createPerson("Chris", "Cross", "chris@gmail.com", "01-01-1988", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661239");
+			Person person5 = DataCreator.createPerson("Julia", "Stiles", "julia@gmail.com", "01-01-1989", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661240");
+			Person person6 = DataCreator.createPerson("Robert", "Redford", "robert@gmail.com", "01-01-1990", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661241");
+			Person person7 = DataCreator.createPerson("Hugh", "Grant", "hugh@gmail.com", "01-01-1991", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "3126661242");
 
 			out.println("\n<<< Save person to database >>>");
 			// Save the person to the database
@@ -70,15 +70,17 @@ public class HerokuMain extends HttpServlet {
 
 			out.println("\n<<< Update phone >>>");
 			Phone phone = person1.getPhone().get(0);
-			phone.setArea("847");
+			phone.setCountry("+1");
+            phone.setArea("847");
             phone.setNumber("4281234");
 
 			// Add new phone
 			Phone workphone = new Phone();
-			workphone.setArea("212");
+            workphone.setCountry("+1");
+            workphone.setArea("212");
             workphone.setNumber("6661234");
 			workphone.setType("Work");
-			workphone.setCountry("+1");
+
 
 			person1.addPhone(workphone);
 
@@ -269,7 +271,7 @@ public class HerokuMain extends HttpServlet {
 			out.println("\n<<< Update facility: >>>");
 			// Update tests
 			facilitySkyScraper.setCapacity(5000);
-			facilitySkyScraper.setDetail("SkyScraper New");
+			facilitySkyScraper.setDetail("Skyscraper New");
 			facilityUsage.updateFacility(facilitySkyScraper);
 
 			out.println("\n<<< Remove unit: >>>");

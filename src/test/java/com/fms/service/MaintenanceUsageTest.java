@@ -31,13 +31,13 @@ public class MaintenanceUsageTest {
 	public void setup() {
 		// Create a new facility with address
 		Address address = new Address();
-		address.setAddress1("620 8th Ave");
-		address.setCity("New York");
-		address.setState("NY");
+		address.setAddress1("800 Michigan Ave");
+		address.setCity("Chicago");
+		address.setState("IL");
 		address.setCountry("USA");
-		address.setZip("07094");
+		address.setZip("60611");
 
-		facility = new Facility("SkyScraper", "400x400", 10000, address);
+		facility = new Facility("Skyscraper", "400x400", 10000, address);
 
 		Unit unit = new Unit();
 		unit.setWidth(400);
