@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
@@ -13,18 +13,16 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
-	<context:component-scan base-package="com.fms.service" />
+    <context:component-scan base-package="com.fms.service" />
 
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-
-
-	<!-- This code connects to Heroku MySQL ClearDB -->
-	<bean class="java.net.URI" id="dbUrl">
-    	<constructor-arg value="#{systemEnvironment['CLEARDB_DATABASE_URL']}"/>
-	</bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 
-    <!-- Use this for Heroku MySQL ClearDB connection -->
+    <!-- This code connects to Heroku MySQL ClearDB
+    <bean class="java.net.URI" id="dbUrl">
+        <constructor-arg value="#{systemEnvironment['CLEARDB_DATABASE_URL']}"/>
+    </bean>
+
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
         destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -32,23 +30,33 @@
         <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />
         <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }" />
     </bean>
-
-
-    <!-- Use this for testing local MySQL connection
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost/fms" />
-		<property name="username" value="root" />
-		<property name="password" value="" />
-	</bean>
     -->
 
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation" value="hibernate.cfg.xml" />
-	</bean>
+    <!-- Use this for local H2 testing -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="org.h2.Driver" />
+        <property name="url" value="jdbc:h2:mem" />
+        <property name="username" value="sa" />
+        <property name="password" value="" />
+    </bean>
 
-	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory">
-	</bean>
+    <!-- Use this for local MySQL testing -->
+    <!--
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost/fms" />
+        <property name="username" value="root" />
+        <property name="password" value="pa55w0rd" />
+    </bean>
+     -->
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="hibernate.cfg.xml" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory">
+    </bean>
 </beans>
