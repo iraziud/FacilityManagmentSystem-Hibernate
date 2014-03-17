@@ -17,7 +17,7 @@ public class FMSLogger extends AppenderSkeleton {
     List<LoggingEvent> eventsList = new ArrayList<LoggingEvent>();
 
     public static PrintWriter out;
-	public static final Logger log = Logger.getLogger("fms_hibernate");
+	public static final Logger log = Logger.getLogger("FMS");
 
     @Override
     protected void append(LoggingEvent event) {

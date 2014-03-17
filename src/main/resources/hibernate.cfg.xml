@@ -6,10 +6,10 @@
 <hibernate-configuration>
  	<session-factory>		
  		<!-- SQL dialect - generate SQL for a particular database -->
- 		<!-- <property name="dialect">org.hibernate.dialect.MySQLDialect</property> -->
+ 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
  		<!-- Use this for testing -->
- 		<property name="dialect">org.hibernate.dialect.H2Dialect</property>
+ 		<!-- <property name="dialect">org.hibernate.dialect.H2Dialect</property> -->
  
  		<!-- Echo all executed SQL statements -->
  		<property name="hibernate.show_sql">true</property>
@@ -18,14 +18,14 @@
  		<property name="hibernate.transaction.auto_close_session">true</property>
  
 		<!-- Mapping resource configuration files -->
- 		<mapping resource="com/fms/model/Address.hbm.xml"/>
- 		<mapping resource="com/fms/model/Floors.hbm.xml"/>
- 		<mapping resource="com/fms/model/Facility.hbm.xml"/>
- 		<mapping resource="com/fms/model/Inspection.hbm.xml"/>
- 		<mapping resource="com/fms/model/Maintenance.hbm.xml"/>
- 		<mapping resource="com/fms/model/Person.hbm.xml"/>
- 		<mapping resource="com/fms/model/Phone.hbm.xml"/>
- 		<mapping resource="com/fms/model/Unit.hbm.xml"/>
+ 		<mapping resource="com/fms/vo/Address.hbm.xml"/> 
+ 		<mapping resource="com/fms/vo/Floors.hbm.xml"/>
+ 		<mapping resource="com/fms/vo/Facility.hbm.xml"/>
+ 		<mapping resource="com/fms/vo/Inspection.hbm.xml"/>
+ 		<mapping resource="com/fms/vo/Maintenance.hbm.xml"/>
+ 		<mapping resource="com/fms/vo/Person.hbm.xml"/>
+ 		<mapping resource="com/fms/vo/Phone.hbm.xml"/>
+ 		<mapping resource="com/fms/vo/Unit.hbm.xml"/>
 
  	</session-factory>
  </hibernate-configuration>

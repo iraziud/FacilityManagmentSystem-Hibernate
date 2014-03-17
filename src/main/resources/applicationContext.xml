@@ -17,7 +17,9 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 
-	<!-- This code connects to Heroku MySQL ClearDB
+	<context:property-placeholder location="config.properties"/>
+
+	<!-- This code connects to Heroku MySQL ClearDB -->
 	<bean class="java.net.URI" id="dbUrl">
     	<constructor-arg value="#{systemEnvironment['CLEARDB_DATABASE_URL']}"/>
 	</bean>
@@ -29,10 +31,9 @@
 		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />
 		<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }" />
 	</bean>
-    -->
 
 	<!-- Use this for local H2 testing -->
-
+	<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="org.h2.Driver" />
@@ -40,6 +41,7 @@
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean>
+	 -->
 
 	<!-- Use this for local MySQL testing -->
 	<!-- 
@@ -54,7 +56,7 @@
 
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation" value="hibernate.cfg.xml" />
+		<property name="configLocation" value="../hibernate.cfg.xml" />
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory">
