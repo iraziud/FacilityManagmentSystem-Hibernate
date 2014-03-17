@@ -1,5 +1,6 @@
 package com.fms.client;
 
+import com.fms.util.FMSLogger;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -10,23 +11,23 @@ import com.fms.model.Phone;
 
 public class PersonClient {
 	public static void main(String[] args) {
-		System.out.println("******************************************************");
-		System.out.println("***************** Demo Person Usage ******************");
-		System.out.println("********************************************************\n");
+        FMSLogger.log.debug("******************************************************");
+        FMSLogger.log.debug("***************** Demo Person Usage ******************");
+        FMSLogger.log.debug("********************************************************\n");
 
-		System.out.println("Initializing Spring...");
+        FMSLogger.log.debug("Initializing Spring...");
 
 		// Create Spring Application Context
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-		System.out.println("Spring initialized...");
+        FMSLogger.log.debug("Spring initialized...");
 
 		IPersonService personService = context.getBean(IPersonService.class);
 
 		/**
 		 * Person usage
 		 */
-		System.out.println("\n<<< Create new person >>>");
+        FMSLogger.log.debug("\n<<< Create new person >>>");
 
 		// Create a new person
         Person person1 = DataCreator.createPerson("Irfan", "Raziuddin", "iraziud@gmail.com", "01-01-1985", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "312","6661236");
@@ -37,7 +38,7 @@ public class PersonClient {
         Person person6 = DataCreator.createPerson("Robert", "Redford", "robert@gmail.com", "01-01-1990", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "312","6661236");
         Person person7 = DataCreator.createPerson("Hugh", "Grant", "hugh@gmail.com", "01-01-1991", "800 Michigan Ave", "Chicago", "IL", "60611", "USA", "312","6661236");
 
-        System.out.println("\n<<< Save person to database >>>");
+        FMSLogger.log.debug("\n<<< Save person to database >>>");
 		// Save the person to the database
 		personService.addPerson(person1);
 		personService.addPerson(person2);
@@ -47,11 +48,11 @@ public class PersonClient {
 		personService.addPerson(person6);
 		personService.addPerson(person7);
 
-		System.out.println("\n<<< Remove address >>>");
+        FMSLogger.log.debug("\n<<< Remove address >>>");
 		Address address = person1.getAddress().get(0);
 		person1.removeAddress(address);
 
-		System.out.println("\n<<< Update phone >>>");
+        FMSLogger.log.debug("\n<<< Update phone >>>");
 		Phone phone = person1.getPhone().get(0);
         phone.setArea("917");
 		phone.setNumber("4281234");
@@ -65,17 +66,17 @@ public class PersonClient {
 
 		person1.addPhone(workphone);
 
-		System.out.println("\n<<< Update in DB >>>");
+        FMSLogger.log.debug("\n<<< Update in DB >>>");
 		// Update person details:
 		person1.setEmail("iraziud@outlook.com");
 		personService.updatePerson(person1);
 
-		System.out.println("\n<<< Retrieved from database >>>");
-		System.out.println(personService.getPerson(person1.getId()));
-		System.out.println(personService.getPerson(person2.getId()));
+        FMSLogger.log.debug("\n<<< Retrieved from database >>>");
+        FMSLogger.log.debug(personService.getPerson(person1.getId()));
+        FMSLogger.log.debug(personService.getPerson(person2.getId()));
 
 		// Remove person itself
-		System.out.println("\n<<< Remove person >>>");
+        FMSLogger.log.debug("\n<<< Remove person >>>");
 		personService.removePerson(person1);
 		personService.removePerson(person2);
 		personService.removePerson(person3);
@@ -87,8 +88,8 @@ public class PersonClient {
 		// Close Spring Application Context
 		context.close();
 
-		System.out.println("\n*****************************************************");
-		System.out.println("***************** End Person Usage ******************");
-		System.out.println("*****************************************************");
+        FMSLogger.log.debug("\n*****************************************************");
+        FMSLogger.log.debug("***************** End Person Usage ******************");
+        FMSLogger.log.debug("*****************************************************");
 	}
 }
