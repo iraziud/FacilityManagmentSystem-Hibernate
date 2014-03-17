@@ -72,6 +72,7 @@ public class PersonClient {
 
 		System.out.println("\n<<< Retrieved from database >>>");
 		System.out.println(personService.getPerson(person1.getId()));
+		System.out.println(personService.getPerson(person2.getId()));
 
 		// Remove person itself
 		System.out.println("\n<<< Remove person >>>");
