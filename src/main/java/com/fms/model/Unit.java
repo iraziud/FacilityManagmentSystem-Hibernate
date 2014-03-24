@@ -3,16 +3,12 @@
  */
 package com.fms.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 /**
  *
  * 
  */
-@Entity
+
 public class Unit {
 
 	public void setId(Long id) {
@@ -27,14 +23,13 @@ public class Unit {
 		this.facility = facility;
 	}
 
-	@Id
-	@GeneratedValue
+
 	private Long id;
 
 	private double length, width, height;
 	private String Type;
 
-	@ManyToOne
+
 	private Facility facility;
 
 	public Unit() {

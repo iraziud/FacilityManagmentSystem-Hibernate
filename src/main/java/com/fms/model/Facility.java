@@ -3,31 +3,31 @@
  */
 package com.fms.model;
 
+import com.fms.util.FMSLogger;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
 /**
  * 
- *
+ * Note: 1. We maintain a list of facilities for each facility that holds all
+ * the facilities that it can have. We didn't implement any specific facility
+ * (e.g. house, apartment, shop because they are all subtype of facility and any
+ * subtype that's added in future would just have to implement the facility
+ * interface and "this" class can hold it's objects (list of facility), so makes
+ * design more extensible and flexible.
+ * 
+ * 2. Floors are made a separate entity because a floor can have any number of
+ * facility and to be able to access any facility on any floor we've to make it
+ * separate entity, you can't make floor as an attribute of facility because if
+ * you do so then you won't be able to achieve this functionality which makes
+ * the design more fragile.
  * 
  */
-@Entity
+
 public class Facility implements IFacility {
 
-	@Id
-	@GeneratedValue
+
 	private Long id;
 
 	// facility type: any type of facility, could have made it an entity but all
@@ -36,33 +36,25 @@ public class Facility implements IFacility {
 	private String facilityType = null;
 	private String dimensions = null;
 
-	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 
 	private int capacity;
 	private String detail = null;
 
-	@OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)
 	private List<Floors> floors = new ArrayList<Floors>();
 
-	@OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)
+
 	private List<Unit> units = new ArrayList<Unit>();
 
-	@OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)
+
 	public List<Inspection> inspections = new ArrayList<Inspection>();
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "facility_maintenance_requests", joinColumns = @JoinColumn(name = "facility_id"), inverseJoinColumns = @JoinColumn(name = "maintenance_id"))
 	public List<Maintenance> maintenanceRequests = new ArrayList<Maintenance>();
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "facility_scheduled_maintenance", joinColumns = @JoinColumn(name = "facility_id"), inverseJoinColumns = @JoinColumn(name = "maintenance_id"))
 	public List<Maintenance> scheduledMaintenances = new ArrayList<Maintenance>();
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "usesFacility")
 	public List<Person> persons = new ArrayList<Person>();
 
-	@Column(name = "facility_usage")
 	private double usage;
 
 	public Facility() {
@@ -83,7 +75,7 @@ public class Facility implements IFacility {
 	}
 
 	public void listUnits() {
-		System.out.println(units);
+		FMSLogger.log.debug(units);
 	}
 
 	public String getFacilityInfo() {
@@ -131,7 +123,7 @@ public class Facility implements IFacility {
 	}
 
 	public void listPersons() {
-		System.out.println(this.id + ":" + this.facilityType + ", Persons: " + persons);
+		FMSLogger.log.debug(this.id + ":" + this.facilityType + ", Persons: " + persons);
 	}
 
 	public void setId(Long id) {

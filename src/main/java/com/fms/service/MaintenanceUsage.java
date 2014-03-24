@@ -7,16 +7,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.fms.util.FMSLogger;
 import com.fms.model.Facility;
 import com.fms.model.Maintenance;
 
-@Service
-@Transactional(propagation = Propagation.REQUIRED)
 /**
  * Facility Maintenance usage utility methods
  * 
@@ -25,19 +20,25 @@ import com.fms.model.Maintenance;
  */
 public class MaintenanceUsage implements IMaintenanceUsage {
 
-	@Autowired
 	SessionFactory sessionFactory;
+
+	IFacilityUsage facilityUsage;
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	public void setFacilityUsage(IFacilityUsage facilityUsage) {
+		this.facilityUsage = facilityUsage;
+	}
 
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
-	@Autowired
-	IFacilityUsage facilityUsage;
-
 	// interfaces methods begin here
 	public void makeFacilityMaintRequest(Maintenance maintenance, Facility facility) {
-		System.out.println("Making maintenance request for: " + maintenance.getType() + " by facility"
+		FMSLogger.log.debug("\nMaking maintenance request for: " + maintenance.getType() + " by facility"
 				+ facility.getFacilityInfo());
 		facility.requestMaintenance(maintenance);
 		facilityUsage.updateFacility(facility);
@@ -50,14 +51,14 @@ public class MaintenanceUsage implements IMaintenanceUsage {
 
 		for (Facility facility : list) {
 			for (Maintenance maintenance : facility.getMaintenanceRequests()) {
-				System.out.println("Maintenance requested for: " + maintenance.getType()
+				FMSLogger.log.debug("\nMaintenance requested for: " + maintenance.getType()
 						+ " made by facility" + facility.getFacilityInfo());
 			}
 		}
 	}
 
 	public void scheduleMaintenance(Facility facility, Maintenance maintenance) {
-		System.out.println("Scheduling maintenance for: " + maintenance.getType() + " by facility"
+		FMSLogger.log.debug("\nScheduling maintenance for: " + maintenance.getType() + " by facility"
 				+ facility.getFacilityInfo());
 		facility.scheduleMaintenance(maintenance);
 		facilityUsage.updateFacility(facility);
@@ -70,7 +71,7 @@ public class MaintenanceUsage implements IMaintenanceUsage {
 
 		for (Facility facility : list) {
 			for (Maintenance maintenance : facility.getMaintenanceRequests()) {
-				System.out.println("Scheduled Maintenance : " + maintenance.getType() + " made by facility"
+				FMSLogger.log.debug("\nScheduled Maintenance : " + maintenance.getType() + " made by facility"
 						+ facility.getFacilityInfo());
 			}
 		}
@@ -83,7 +84,7 @@ public class MaintenanceUsage implements IMaintenanceUsage {
 			cost += maintenance.getCost();
 		}
 
-		System.out.println("Maintenance cost is: " + cost + " for facility" + facility.getFacilityInfo());
+		FMSLogger.log.debug("\nMaintenance cost is: " + cost + " for facility" + facility.getFacilityInfo());
 
 		return cost;
 	}
@@ -100,7 +101,7 @@ public class MaintenanceUsage implements IMaintenanceUsage {
 				problemrate += 5;
 		}
 
-		System.out.println("Problem rate is: " + problemrate + " for facility" + facility.getFacilityInfo());
+		FMSLogger.log.debug("\nProblem rate is: " + problemrate + " for facility" + facility.getFacilityInfo());
 		return problemrate;
 	}
 
@@ -116,20 +117,20 @@ public class MaintenanceUsage implements IMaintenanceUsage {
 				downtime += 5;
 		}
 
-		System.out.println("Downtime is: " + downtime + " for facility" + facility.getFacilityInfo());
+		FMSLogger.log.debug("\nDowntime is: " + downtime + " for facility" + facility.getFacilityInfo());
 		return downtime;
 	}
 
 	public void listFacilityProblems(Facility facility) {
-		System.out.println("Problems for facility : " + facility.getFacilityInfo() + " : ");
+		FMSLogger.log.debug("\nProblems for facility : " + facility.getFacilityInfo() + " : ");
 		List<Maintenance> scheduledMaintenance = facility.getScheduledMaintenance();
 		for (Maintenance maintenance : scheduledMaintenance) {
-			System.out.println(maintenance.getType());
+			FMSLogger.log.debug(maintenance.getType());
 		}
 	}
 
 	public void revokeMaintenanceRequest(Maintenance maintenance, Facility facility) {
-		System.out.println("Revoking maintenance request for: " + maintenance.getType() + " by facility"
+		FMSLogger.log.debug("\nRevoking maintenance request for: " + maintenance.getType() + " by facility"
 				+ facility.getFacilityInfo());
 		facility.removeMaintenance(maintenance);
 		facilityUsage.updateFacility(facility);

@@ -5,15 +5,12 @@ package com.fms.service;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fms.model.Facility;
-import com.fms.model.IFacility;
-import com.fms.model.Inspection;
-import com.fms.model.Person;
+import com.fms.util.FMSLogger;
+import com.fms.model.*;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
@@ -24,11 +21,17 @@ import com.fms.model.Person;
  */
 public class FacilityUsage implements IFacilityUsage {
 
-	@Autowired
 	SessionFactory sessionFactory;
 
-	@Autowired
 	IPersonService personService;
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	public void setPersonService(IPersonService personService) {
+		this.personService = personService;
+	}
 
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
@@ -39,7 +42,7 @@ public class FacilityUsage implements IFacilityUsage {
 	}
 
 	public void assignFacilityToUse(Person person, IFacility facility) {
-		System.out.println("Assigning facility " + facility.getFacilityInfo() + " to Person : " + person.getId() + ", "
+		FMSLogger.log.debug("\nAssigning facility " + facility.getFacilityInfo() + " to Person : " + person.getId() + ", "
 				+ person.getName());
 		person.usesFacility.add((Facility) facility);
 		personService.updatePerson(person);
@@ -47,7 +50,7 @@ public class FacilityUsage implements IFacilityUsage {
 
 	public boolean vacateFacility(Person person, IFacility facility) {
 		if (person.usesFacility.contains(facility)) {
-			System.out.println("Vacating facility " + facility.getFacilityInfo() + " by Person : " + person.getId() + ", "
+			FMSLogger.log.debug("\nVacating facility " + facility.getFacilityInfo() + " by Person : " + person.getId() + ", "
 					+ person.getName());
 			person.usesFacility.remove(facility);
 		}
@@ -63,13 +66,15 @@ public class FacilityUsage implements IFacilityUsage {
 	}
 
 	public void listInspection(IFacility facility) {
+		FMSLogger.log.debug("");
 		for (Inspection i : facility.getInspections()) {
-			System.out.println(i.toString());
+			FMSLogger.log.debug(i.toString());
 		}
 	}
 
 	public void listActualUsage(IFacility facility) {
-		System.out.println(facility.getUsage());
+		FMSLogger.log.debug("");
+		FMSLogger.log.debug(facility.getUsage());
 	}
 
 	public double calcUsageRate() {

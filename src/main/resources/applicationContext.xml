@@ -13,11 +13,32 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
-	<context:component-scan base-package="com.fms.service" />
+	<bean id="facilityUsage" class="com.fms.service.FacilityUsage">
+		<property name="personService" ref="personService" />
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<bean id="maintenanceUsage" class="com.fms.service.MaintenanceUsage">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="facilityUsage" ref="facilityUsage" />
+	</bean>
 
-	<context:property-placeholder location="config.properties"/>
+	<bean id="personService" class="com.fms.service.PersonServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="dataCreator" class="com.fms.main.DataCreator">
+	</bean>
+
+	<!-- For all the value objects -->
+	<bean id="address" class="com.fms.model.Address" scope="prototype"/>
+	<bean id="facility" class="com.fms.model.Facility" scope="prototype"/>
+	<bean id="floors" class="com.fms.model.Floors" scope="prototype"/>
+	<bean id="inspection" class="com.fms.model.Inspection" scope="prototype"/>
+	<bean id="maintenance" class="com.fms.model.Maintenance" scope="prototype"/>
+	<bean id="person" class="com.fms.model.Person" scope="prototype"/>
+	<bean id="phone" class="com.fms.model.Phone" scope="prototype"/>
+	<bean id="unit" class="com.fms.model.Unit" scope="prototype"/>
 
 	<!-- This code connects to Heroku MySQL ClearDB -->
 	<bean class="java.net.URI" id="dbUrl">
@@ -61,4 +82,20 @@
 
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory">
 	</bean>
+	
+	<!-- AOP for transaction management -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- all methods starting with 'get' are read-only -->
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- Enable on all service classes -->
+	<aop:config>
+		<aop:pointcut id="serviceUsageOperation" expression="execution(* com.fms.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceUsageOperation" />
+	</aop:config>
+
 </beans>

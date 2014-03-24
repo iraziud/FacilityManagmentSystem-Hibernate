@@ -2,15 +2,10 @@ package com.fms.service;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.fms.util.FMSLogger;
 import com.fms.model.Person;
 
-@Repository
-@Transactional(propagation = Propagation.REQUIRED)
 /**
  * Person utility methods
  * 
@@ -19,15 +14,18 @@ import com.fms.model.Person;
  */
 public class PersonServiceImpl implements IPersonService {
 
-	@Autowired
 	SessionFactory sessionFactory;
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
 	public void addPerson(Person p) {
-		System.out.println("Saving Person: " + p.getName() + " to DB");
+		FMSLogger.log.debug("\nSaving Person: " + p.getName() + " to DB");
 		getCurrentSession().save(p);
 	}
 

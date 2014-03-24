@@ -3,16 +3,10 @@
  */
 package com.fms.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
-@Entity
 public class Inspection {
 
-	@Id
-	@GeneratedValue
+
 	private Long id;
 	private String time;
 
@@ -22,7 +16,7 @@ public class Inspection {
 
 	private String summary;
 
-	@ManyToOne
+
 	private Facility facility;
 
 	public Inspection() {

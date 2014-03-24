@@ -1,23 +1,18 @@
 package com.fms.util;
 
-import org.apache.log4j.AppenderSkeleton;
-import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggingEvent;
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A log monitoring system that prints the Hibernate query to Heroku
- *
- */
+import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggingEvent;
 
 public class FMSLogger extends AppenderSkeleton {
     List<LoggingEvent> eventsList = new ArrayList<LoggingEvent>();
 
     public static PrintWriter out;
-	public static final Logger log = Logger.getLogger("FMS");
+	public static final Logger log = Logger.getLogger("fms");
 
     @Override
     protected void append(LoggingEvent event) {

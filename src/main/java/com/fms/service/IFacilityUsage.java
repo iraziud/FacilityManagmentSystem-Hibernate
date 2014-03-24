@@ -3,10 +3,7 @@
  */
 package com.fms.service;
 
-import com.fms.model.Facility;
-import com.fms.model.IFacility;
-import com.fms.model.Inspection;
-import com.fms.model.Person;
+import com.fms.model.*;
 
 /**
  * Facility usage utility methods

@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* com.fms.client.HerokuMain
+web:    java -cp target/classes:target/dependency/* com.fms.main.HerokuMain

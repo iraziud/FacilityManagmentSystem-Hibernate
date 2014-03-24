@@ -1,41 +1,26 @@
-/**
- * 
- */
 package com.fms.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
-@Entity
+import com.fms.util.FMSLogger;
+
+
 public class Person {
 
-	@Id
-	@GeneratedValue
+
 	private Long id;
 	private String fname;
 	private String middlename;
 	private String lname;
 	private String DOB;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Phone> phone = new ArrayList<Phone>();
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Address> address = new ArrayList<Address>();
 	private String email;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "person_facility", joinColumns = { @JoinColumn(name = "PERSON_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "FACILITY_ID", nullable = false, updatable = false) })
 	public List<Facility> usesFacility = new ArrayList<Facility>();
 
 	public Person() {
@@ -134,10 +119,10 @@ public class Person {
 	}
 
 	public void listPersonFacilities() {
-		System.out.println("Person: " + this.getId() + ": " + this.getName() + " users the following facilities: ");
+		FMSLogger.log.debug("Person: " + this.getId() + ": " + this.getName() + " users the following facilities: ");
 		for (IFacility f : usesFacility)
-			System.out.println(f.getFacilityInfo());
-		System.out.println();
+			FMSLogger.log.debug(f.getFacilityInfo());
+		FMSLogger.log.debug("");
 	}
 
 	@Override

@@ -3,15 +3,12 @@
  */
 package com.fms.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
-@Entity
+
+
 public class Floors implements IFloors {
-	@Id
-	@GeneratedValue
+
+
 	private Long id;
 	private int personCapacity, numRooms;
 	private double length, width, height;
@@ -20,7 +17,7 @@ public class Floors implements IFloors {
 		this.id = id;
 	}
 
-	@ManyToOne
+
 	private Facility facility;
 
 	public Floors() {
