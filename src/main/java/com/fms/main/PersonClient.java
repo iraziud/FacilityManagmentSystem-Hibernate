@@ -20,8 +20,8 @@ public class PersonClient {
 
 		FMSLogger.log.debug("Spring initialized...");
 
-		IPersonService personService = context.getBean(IPersonService.class);
-		DataCreator dataCreator = context.getBean(DataCreator.class);
+		IPersonService personService = (IPersonService)context.getBean("personService");
+		DataCreator dataCreator = (DataCreator)context.getBean("dataCreator");
 
 		/**
 		 * Person usage
@@ -57,7 +57,7 @@ public class PersonClient {
 		phone.setNumber("4281234");
 
 		// Add new phone
-		Phone workphone = context.getBean(Phone.class);
+		Phone workphone = (Phone)context.getBean("phone");
 		workphone.setNumber("6661234");
 		workphone.setArea("212");
         workphone.setType("Work");

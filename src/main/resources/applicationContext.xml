@@ -40,7 +40,7 @@
 	<bean id="phone" class="com.fms.model.Phone" scope="prototype"/>
 	<bean id="unit" class="com.fms.model.Unit" scope="prototype"/>
 
-	<!-- This code connects to Heroku MySQL ClearDB -->
+	<!-- This code connects to Heroku MySQL ClearDB
 	<bean class="java.net.URI" id="dbUrl">
     	<constructor-arg value="#{systemEnvironment['CLEARDB_DATABASE_URL']}"/>
 	</bean>
@@ -51,10 +51,10 @@
 		<property name="url" value="#{ 'jdbc:mysql://' + @dbUrl.getHost() + @dbUrl.getPath() }" />
 		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />
 		<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }" />
-	</bean>
+	</bean> -->
 
 	<!-- Use this for local H2 testing -->
-	<!-- 
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="org.h2.Driver" />
@@ -62,7 +62,7 @@
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean>
-	 -->
+
 
 	<!-- Use this for local MySQL testing -->
 	<!-- 

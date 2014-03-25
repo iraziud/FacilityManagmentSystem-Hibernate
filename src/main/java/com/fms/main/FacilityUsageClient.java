@@ -24,9 +24,9 @@ public class FacilityUsageClient {
 		/**
 		 * Test the facility Usage
 		 */
-		IFacilityUsage facilityUsage = context.getBean(IFacilityUsage.class);
-		IPersonService personService = context.getBean(IPersonService.class);
-		DataCreator dataCreator = context.getBean(DataCreator.class);
+		IFacilityUsage facilityUsage = (IFacilityUsage)context.getBean("facilityUsage");
+		IPersonService personService = (IPersonService) context.getBean("personService");
+		DataCreator dataCreator = (DataCreator)context.getBean("dataCreator");
 
 		FMSLogger.log.debug("\n<<< Creating facilities >>>");
 
@@ -171,7 +171,7 @@ public class FacilityUsageClient {
 		facilitySkyScraper.removeUnit(facilitySkyScraper.getUnits().get(0));
 
 		FMSLogger.log.debug("\n<<< Add new unit: >>>");
-		Unit newunit = context.getBean(Unit.class);
+		Unit newunit = (Unit)context.getBean("unit");
 		newunit.setWidth(200);
 		newunit.setLength(200);
 		newunit.setHeight(2000);

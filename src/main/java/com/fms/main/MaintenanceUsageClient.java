@@ -25,9 +25,9 @@ public class MaintenanceUsageClient {
 		/**
 		 * Facility Maintenance usage
 		 */
-		IMaintenanceUsage maintenanceUsage = context.getBean(IMaintenanceUsage.class);
-		IFacilityUsage facilityUsage = context.getBean(IFacilityUsage.class);
-		DataCreator dataCreator = context.getBean(DataCreator.class);
+		IMaintenanceUsage maintenanceUsage = (IMaintenanceUsage)context.getBean("maintainanceUsage");
+		IFacilityUsage facilityUsage = (IFacilityUsage)context.getBean("facilityUsage");
+		DataCreator dataCreator = (DataCreator)context.getBean("dataCreator");
 
 		FMSLogger.log.debug("\n<<< Creating Facility: >>>");
 		// Create a facility with a new address

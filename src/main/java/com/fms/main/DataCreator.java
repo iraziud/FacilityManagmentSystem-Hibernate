@@ -15,7 +15,7 @@ public class DataCreator implements ApplicationContextAware {
 
 	public Person createPerson(String firstName, String lastName, String email, String dob, String address, String city, String state, String zip, String country, String area, String phoneNumber) {
 		// Add a person to the facility
-		Person person = context.getBean(Person.class);
+		Person person = (Person)context.getBean("person");
 		person.setFirstName(firstName);
 		person.setLastName(lastName);
 		person.setEmail(email);
@@ -24,7 +24,7 @@ public class DataCreator implements ApplicationContextAware {
 		Address addressObj = createAddress(address, city, state, zip, country);
 		person.addAddress(addressObj);
 
-		Phone phone = context.getBean(Phone.class);
+		Phone phone = (Phone)context.getBean("phone");
 		phone.setNumber(phoneNumber);
 		phone.setType("H");
 		phone.setCountry("+1");
@@ -38,7 +38,7 @@ public class DataCreator implements ApplicationContextAware {
 		// Create a new facility with address
 		Address addressObj = createAddress(address, city, state, zip, country);
 
-		Facility facility = context.getBean(Facility.class);
+		Facility facility = (Facility)context.getBean("facility");
 		facility.setFacilityType(name);
 		facility.setDimensions(dimension);
 		facility.setCapacity(capacity);
@@ -52,7 +52,7 @@ public class DataCreator implements ApplicationContextAware {
 	}
 
 	private Unit createUnit(int length, int width, int height) {
-		Unit unit = context.getBean(Unit.class);
+		Unit unit = (Unit) context.getBean("unit");
 		unit.setWidth(width);
 		unit.setLength(length);
 		unit.setHeight(height);
@@ -62,7 +62,7 @@ public class DataCreator implements ApplicationContextAware {
 	}
 	
 	public Address createAddress(String address, String city, String state, String zip, String country) {
-		Address addressObj = context.getBean(Address.class);
+		Address addressObj = (Address) context.getBean("address");
 		addressObj.setAddress1(address);
 		addressObj.setCity(city);
 		addressObj.setState(state);
@@ -73,7 +73,7 @@ public class DataCreator implements ApplicationContextAware {
 	}
 
 	public Inspection createInspection(String time, String summary) {
-		Inspection inspection = context.getBean(Inspection.class);
+		Inspection inspection = (Inspection) context.getBean("inspection");
 		inspection.setTime(time);
 		inspection.setSummary(summary);
 
@@ -81,7 +81,7 @@ public class DataCreator implements ApplicationContextAware {
 	}
 
 	public Maintenance createMaintenance(String type, double cost) {
-		Maintenance maintenance = context.getBean(Maintenance.class);
+		Maintenance maintenance = (Maintenance)context.getBean("maintainance");
 		maintenance.setType(type);
 		maintenance.setCost(cost);
 
